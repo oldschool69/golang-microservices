@@ -15,9 +15,9 @@ func GetUser(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		// return Bad quest to the client
 		apiErr := &utils.ApplicationError{
-			Message: "user_id must be a number",
+			Message:    "user_id must be a number",
 			StatusCode: http.StatusBadRequest,
-			Code: "bad_Request",
+			Code:       "bad_Request",
 		}
 		jsonValue, _ := json.Marshal(apiErr)
 		resp.WriteHeader(apiErr.StatusCode)
