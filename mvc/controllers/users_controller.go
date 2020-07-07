@@ -12,6 +12,10 @@ import (
 func GetUser(resp http.ResponseWriter, req *http.Request) {
 
 	userId, err := strconv.ParseInt(req.URL.Query().Get("user_id"), 10, 64)
+
+	// Add this header to return json format
+	resp.Header().Add("content-type", "application/json")
+
 	if err != nil {
 		// return Bad quest to the client
 		apiErr := &utils.ApplicationError{
