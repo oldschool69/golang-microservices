@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"encoding/json"
+	"github.com/gin-gonic/gin"
 	"golang-microservices/mvc/services"
 	"golang-microservices/mvc/utils"
 	"net/http"
@@ -9,12 +9,9 @@ import (
 )
 
 // Única responsabilidade do controller é validar request e enviar resposta para os clientes
-func GetUser(resp http.ResponseWriter, req *http.Request) {
+func GetUser(c *gin.Context) {
 
-	userId, err := strconv.ParseInt(req.URL.Query().Get("user_id"), 10, 64)
-
-	// Add this header to return json format
-	resp.Header().Add("content-type", "application/json")
+	userId, err := strconv.ParseInt(c.Param("user_id"), 10, 64)
 
 	if err != nil {
 		// return Bad quest to the client
@@ -23,9 +20,7 @@ func GetUser(resp http.ResponseWriter, req *http.Request) {
 			StatusCode: http.StatusBadRequest,
 			Code:       "bad_Request",
 		}
-		jsonValue, _ := json.Marshal(apiErr)
-		resp.WriteHeader(apiErr.StatusCode)
-		resp.Write(jsonValue)
+		utils.RespondError(c, apiErr)
 		return
 	}
 
@@ -33,14 +28,10 @@ func GetUser(resp http.ResponseWriter, req *http.Request) {
 	user, apiErr := services.UsersService.GetUser(userId)
 	if apiErr != nil {
 		// Handle the error and return to the client
-		jsonValue, _ := json.Marshal(apiErr)
-		resp.WriteHeader(apiErr.StatusCode)
-		resp.Write(jsonValue)
+		utils.RespondError(c, apiErr)
 		return
 	}
 
 	// return user to client
-	jsonValue, _ := json.Marshal(user)
-	resp.Write(jsonValue)
-
+	utils.Respond(c, http.StatusOK, user)
 }
