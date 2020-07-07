@@ -8,7 +8,7 @@ import (
 
 func TestGetUserNoUserFound(t *testing.T) {
 	// Initialization
-	
+
 	// Execution
 	user, err := GetUser(0)
 
