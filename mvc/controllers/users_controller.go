@@ -30,7 +30,7 @@ func GetUser(resp http.ResponseWriter, req *http.Request) {
 	}
 
 	// Consulta a camada de serviço para pegar os dados
-	user, apiErr := services.GetUser(userId)
+	user, apiErr := services.UsersService.GetUser(userId)
 	if apiErr != nil {
 		// Handle the error and return to the client
 		jsonValue, _ := json.Marshal(apiErr)
