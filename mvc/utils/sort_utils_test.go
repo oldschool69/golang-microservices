@@ -8,8 +8,8 @@ import (
 
 func TestBubbleSortWorstCase(t *testing.T) {
 	// Initialization
-	els := []int{9,8,7,6,5}
-	sortedEls := []int{5,6,7,8,9}
+	els := []int{9, 8, 7, 6, 5}
+	sortedEls := []int{5, 6, 7, 8, 9}
 
 	// Execution
 	els = BubbleSort(els)
@@ -22,8 +22,8 @@ func TestBubbleSortWorstCase(t *testing.T) {
 
 func TestBubbleSortBestCase(t *testing.T) {
 	// Initialization
-	els := []int{5,6,7,8,9}
-	sortedEls := []int{5,6,7,8,9}
+	els := []int{5, 6, 7, 8, 9}
+	sortedEls := []int{5, 6, 7, 8, 9}
 
 	// Execution
 	els = BubbleSort(els)
@@ -37,7 +37,7 @@ func TestBubbleSortBestCase(t *testing.T) {
 func getElements(n int) []int {
 	result := make([]int, n)
 	i := 0
-	for j := n-1; j >= 0; j-- {
+	for j := n - 1; j >= 0; j-- {
 		result[i] = j
 		i++
 	}
@@ -47,7 +47,7 @@ func getElements(n int) []int {
 
 func TestGetElements(t *testing.T) {
 	els := getElements(5)
-	resultEls := []int{4,3,2,1,0}
+	resultEls := []int{4, 3, 2, 1, 0}
 	assert.NotNil(t, els)
 	assert.EqualValues(t, resultEls, els)
 }
@@ -65,7 +65,6 @@ func BenchmarkSort10(b *testing.B) {
 		sort.Ints(els)
 	}
 }
-
 
 func BenchmarkBubbleSort1000(b *testing.B) {
 	els := getElements(1000)

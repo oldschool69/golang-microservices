@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type itemsService struct {}
+type itemsService struct{}
 
 var (
 	ItemsService itemsService
@@ -15,7 +15,7 @@ var (
 func (i *itemsService) GetItems(itemId string) (*domain.Item, *utils.ApplicationError) {
 	// Recupera os dados
 	return nil, &utils.ApplicationError{
-		Message: "implement me",
+		Message:    "implement me",
 		StatusCode: http.StatusInternalServerError,
 	}
 }
