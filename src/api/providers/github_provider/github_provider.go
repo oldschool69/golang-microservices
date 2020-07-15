@@ -46,7 +46,7 @@ func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.C
 		var errResponse github.GithubErrorResponse
 		if err := json.Unmarshal(bytes, &errResponse); err != nil {
 			return nil, &github.GithubErrorResponse{
-				StatusCode: http.StatusInternalServerError,
+				StatusCode: http.StatusUnauthorized,
 				Message:    "Invalid json response body",
 			}
 		}

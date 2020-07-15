@@ -36,6 +36,10 @@ func AddMockup(mock Mock) {
 	mocks[getMockId(mock.HttpMethod, mock.Url)] = &mock
 }
 
+func FlushMockups() {
+	mocks = make(map[string]*Mock)
+}
+
 func Post(url string, body interface{}, headers http.Header) (*http.Response, error) {
 
 	if enableMocks {
