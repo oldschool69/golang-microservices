@@ -10,6 +10,9 @@ import (
 	"net/http"
 )
 
+// Essa é a camada que bate nas API externas, nesse
+// caso, a API do Github
+
 const (
 	headerAuthorization       = "Authorization"
 	headerAuthorizationFormat = "token %s"

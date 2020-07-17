@@ -1,16 +1,7 @@
 package github
 
-/* payload
-{
-"name": "golang-microservice-tutorial",
-"description": "using github api in a Go webservice",
-"homepage": "https://github.com",
-"private": false,
-"has_issues": true,
-"has_projects": true,
-"has_wiki": true
-}*/
-
+// Mapeamento do formato JSON para as estruturas nativas
+// do Go
 type CreateRepoRequest struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
