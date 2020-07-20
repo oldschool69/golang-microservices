@@ -88,14 +88,14 @@ func TestCreateRepoUnauthorized(t *testing.T) {
 		HttpMethod: http.MethodPost,
 		Response: &http.Response{
 			StatusCode: http.StatusUnauthorized,
-			Body:       ioutil.NopCloser(strings.NewReader(`{"message": "Requires authentication","documentation_url": "https://developer.github.com/v3/repos/#create"`)),
+			Body:       ioutil.NopCloser(strings.NewReader(`{"message": "Requires authentication","documentation_url": "https://developer.github.com/v3/repos/#create"}`)),
 		},
 	})
 	response, err := CreateRepo("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, err)
 	assert.EqualValues(t, http.StatusUnauthorized, err.StatusCode)
-	assert.EqualValues(t, "Invalid json response body", err.Message)
+	assert.EqualValues(t, "Requires authentication", err.Message)
 
 }
 
