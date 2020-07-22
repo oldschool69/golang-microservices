@@ -1,6 +1,10 @@
 package errors
 
-import "net/http"
+import (
+	"encoding/json"
+	"errors"
+	"net/http"
+)
 
 type ApiError interface {
 	GetStatus() int
@@ -46,6 +50,14 @@ func NewInternalServerError(message string) ApiError {
 		Status: http.StatusInternalServerError,
 		Message: message,
 	}
+}
+
+func NewApiErrFromBytes(body []byte) (ApiError, error) {
+	var result apiError
+	if err := json.Unmarshal(body, &result); err != nil {
+		return nil, errors.New("invalid json body")
+	}
+	return &result, nil
 }
 
 func NewBadRequestError(message string) ApiError {
