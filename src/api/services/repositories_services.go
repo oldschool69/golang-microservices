@@ -43,8 +43,8 @@ func (s *repoService) CreateRepo(input repositories.CreateRepoRequest) (*reposit
 		return nil, errors.NewApiError(err.StatusCode, err.Message)
 	}
 	result := repositories.CreateRepoResponse{
-		Id: response.Id,
-		Name: response.Name,
+		Id:    response.Id,
+		Name:  response.Name,
 		Owner: response.Owner.Login,
 	}
 	return &result, nil
@@ -83,13 +83,13 @@ func (s *repoService) CreateRepos(requests []repositories.CreateRepoRequest) (re
 	return responses, nil
 }
 
-func (s* repoService) handleRepoResults(wg *sync.WaitGroup, input chan repositories.CreateRepositoriesResult, output chan repositories.CreateReposResponse) {
+func (s *repoService) handleRepoResults(wg *sync.WaitGroup, input chan repositories.CreateRepositoriesResult, output chan repositories.CreateReposResponse) {
 	var responses repositories.CreateReposResponse
 
 	for result := range input {
 		repoResult := repositories.CreateRepositoriesResult{
 			Response: result.Response,
-			Error: result.Error,
+			Error:    result.Error,
 		}
 		responses.Results = append(responses.Results, repoResult)
 		wg.Done()
@@ -98,7 +98,7 @@ func (s* repoService) handleRepoResults(wg *sync.WaitGroup, input chan repositor
 	output <- responses
 }
 
-func (s* repoService) CreateRepoConcurrent(request repositories.CreateRepoRequest, input chan repositories.CreateRepositoriesResult) {
+func (s *repoService) CreateRepoConcurrent(request repositories.CreateRepoRequest, input chan repositories.CreateRepositoriesResult) {
 	if err := request.Validate(); err != nil {
 		input <- repositories.CreateRepositoriesResult{Error: err}
 		return

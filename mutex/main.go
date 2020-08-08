@@ -7,9 +7,8 @@ import (
 
 var (
 	counter = 0
-	lock sync.Mutex
+	lock    sync.Mutex
 )
-
 
 func main() {
 	var wg sync.WaitGroup

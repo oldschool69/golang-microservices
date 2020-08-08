@@ -8,9 +8,9 @@ func main() {
 	testBufferChannel()
 }
 
-func testBufferChannel(){
+func testBufferChannel() {
 	c := make(chan string, 4)
-	go func(input chan string){
+	go func(input chan string) {
 		input <- "Hello 1"
 		input <- "Hello 2"
 		input <- "Hello 3"
@@ -18,10 +18,7 @@ func testBufferChannel(){
 		close(input)
 	}(c)
 
-	for greeting := range c  {
+	for greeting := range c {
 		fmt.Println(greeting)
 	}
 }
-
-
-

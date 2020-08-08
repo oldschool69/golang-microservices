@@ -9,5 +9,5 @@ import (
 func GetMockContext(request *http.Request, response *httptest.ResponseRecorder) *gin.Context {
 	c, _ := gin.CreateTestContext(response)
 	c.Request = request
-	return  c
+	return c
 }

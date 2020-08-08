@@ -135,5 +135,3 @@ func TestCreateRepoNoError(t *testing.T) {
 	assert.EqualValues(t, "oldschool69/golang-microservice-tutorial-2", response.FullName)
 
 }
-
-

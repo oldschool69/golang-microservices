@@ -21,7 +21,7 @@ func TestMain(m *testing.M) {
 func TestCreateRepoInvalidInputName(t *testing.T) {
 	request := repositories.CreateRepoRequest{}
 
-	result,err := RepositoryService.CreateRepo(request)
+	result, err := RepositoryService.CreateRepo(request)
 	assert.Nil(t, result)
 	assert.NotNil(t, err)
 	assert.EqualValues(t, http.StatusBadRequest, err.GetStatus())
@@ -31,7 +31,7 @@ func TestCreateRepoInvalidInputName(t *testing.T) {
 func TestCreateRepoErrorFromGithub(t *testing.T) {
 	restclient.FlushMockups()
 	restclient.AddMockup(restclient.Mock{
-		Url: "https://api.github.com/user/repos",
+		Url:        "https://api.github.com/user/repos",
 		HttpMethod: http.MethodPost,
 		Response: &http.Response{
 			StatusCode: http.StatusUnauthorized,
@@ -40,7 +40,7 @@ func TestCreateRepoErrorFromGithub(t *testing.T) {
 	})
 
 	request := repositories.CreateRepoRequest{
-		Name:"testing",
+		Name: "testing",
 	}
 	result, err := RepositoryService.CreateRepo(request)
 	assert.Nil(t, result)
@@ -52,7 +52,7 @@ func TestCreateRepoErrorFromGithub(t *testing.T) {
 func TestCreateRepoErrorNoError(t *testing.T) {
 	restclient.FlushMockups()
 	restclient.AddMockup(restclient.Mock{
-		Url: "https://api.github.com/user/repos",
+		Url:        "https://api.github.com/user/repos",
 		HttpMethod: http.MethodPost,
 		Response: &http.Response{
 			StatusCode: http.StatusCreated,
@@ -61,7 +61,7 @@ func TestCreateRepoErrorNoError(t *testing.T) {
 	})
 
 	request := repositories.CreateRepoRequest{
-		Name:"testing",
+		Name: "testing",
 	}
 	result, err := RepositoryService.CreateRepo(request)
 	assert.Nil(t, err)
@@ -72,11 +72,10 @@ func TestCreateRepoErrorNoError(t *testing.T) {
 
 }
 
-
 func TestCreateRepoConcurrentErrorFromGithub(t *testing.T) {
 	restclient.FlushMockups()
 	restclient.AddMockup(restclient.Mock{
-		Url: "https://api.github.com/user/repos",
+		Url:        "https://api.github.com/user/repos",
 		HttpMethod: http.MethodPost,
 		Response: &http.Response{
 			StatusCode: http.StatusUnauthorized,
@@ -100,7 +99,7 @@ func TestCreateRepoConcurrentErrorFromGithub(t *testing.T) {
 func TestCreateRepoConcurrentNoError(t *testing.T) {
 	restclient.FlushMockups()
 	restclient.AddMockup(restclient.Mock{
-		Url: "https://api.github.com/user/repos",
+		Url:        "https://api.github.com/user/repos",
 		HttpMethod: http.MethodPost,
 		Response: &http.Response{
 			StatusCode: http.StatusCreated,
@@ -133,7 +132,7 @@ func TestHandleRepoResults(t *testing.T) {
 	go service.handleRepoResults(&wg, input, output)
 
 	wg.Add(1)
-	go func(){
+	go func() {
 		input <- repositories.CreateRepositoriesResult{
 			Error: errors.NewBadRequestError("invalid repository name"),
 		}

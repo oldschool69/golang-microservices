@@ -17,8 +17,8 @@ var (
 
 type createRepoResult struct {
 	Request repositories.CreateRepoRequest
-	Result *repositories.CreateRepoResponse
-	Error  errors.ApiError
+	Result  *repositories.CreateRepoResponse
+	Error   errors.ApiError
 }
 
 func getRequests() []repositories.CreateRepoRequest {
@@ -46,7 +46,7 @@ func main() {
 
 	fmt.Println(fmt.Sprintf("about to process %d requests", len(requests)))
 	success = make(map[string]string)
-	fail    = make(map[string]errors.ApiError)
+	fail = make(map[string]errors.ApiError)
 	input := make(chan createRepoResult)
 	// Esse técnica utiliza um buffered channel para
 	// limitar a quantidade de go routines que são
@@ -76,14 +76,13 @@ func main() {
 		fmt.Println("fail result was ", v)
 	}
 
-
 }
 
 func handleResults(wg *sync.WaitGroup, input chan createRepoResult) {
 	for result := range input {
 		if result.Error != nil {
 			fail[result.Request.Name] = result.Error
-	 	} else {
+		} else {
 			success[result.Request.Name] = result.Result.Name
 		}
 		wg.Done()
@@ -94,8 +93,8 @@ func createRepo(buffer chan bool, output chan createRepoResult, request reposito
 	result, err := services.RepositoryService.CreateRepo(request)
 	repoResult := createRepoResult{
 		Request: request,
-		Result: result,
-		Error:  err,
+		Result:  result,
+		Error:   err,
 	}
 	output <- repoResult
 	<-buffer

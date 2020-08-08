@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-const(
+const (
 	apiGithubAccessToken = "SECRET_GITHUB_ACCESS_TOKEN"
 )
 

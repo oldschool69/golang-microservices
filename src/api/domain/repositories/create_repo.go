@@ -31,5 +31,5 @@ type CreateReposResponse struct {
 
 type CreateRepositoriesResult struct {
 	Response *CreateRepoResponse `json:"repo"`
-	Error    errors.ApiError    `json:"error"`
+	Error    errors.ApiError     `json:"error"`
 }
